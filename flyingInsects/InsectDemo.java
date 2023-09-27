@@ -16,6 +16,8 @@ public class InsectDemo {
             willi.snooze();
             System.out.println("---------------!");
             maja.fly();
+            someInsect = maja;
+            someInsect.fly();
             folienTesten test = new folienTesten();
             test.rechnen();
 

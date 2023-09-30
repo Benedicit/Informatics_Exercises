@@ -20,6 +20,7 @@ public class InsectDemo {
             someInsect.fly();
             folienTesten test = new folienTesten();
             test.rechnen();
+            maja.snooze();
 
     }
 }

@@ -14,12 +14,8 @@ public class Beatbox {
             int note = Integer.parseInt(args[1]);
             beatBox.play(instrument, note);
         }
-        JFrame frame = new JFrame();
-        JButton button = new JButton("click me");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(button);
-        frame.setSize(300, 300);
-        frame.setVisible(true);
+        GUI gui = new GUI();
+        gui.go();
 
     }
     public void play(int instrument, int note) {

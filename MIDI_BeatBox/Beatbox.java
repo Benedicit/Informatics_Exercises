@@ -15,7 +15,7 @@ public class Beatbox {
             beatBox.play(instrument, note);
         }
         GUI gui = new GUI();
-        gui.go();
+        gui.animate();
 
     }
     public void play(int instrument, int note) {

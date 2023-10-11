@@ -2,6 +2,7 @@ package MIDI_BeatBox;
 import javax.sound.midi.*;
 import static javax.sound.midi.ShortMessage.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class Beatbox {
     public static void main(String[] args) {
@@ -22,30 +23,22 @@ public class Beatbox {
         try {
             Sequencer player = MidiSystem.getSequencer();
             player.open();
+
+            int[] eventsIWant = {127};
+            player.addControllerEventListener(event -> System.out.println("la"), eventsIWant);
+
             Sequence seq = new Sequence(Sequence.PPQ, 4);
             Track track = seq.createTrack();
 
-            //          First Event
-            ShortMessage msg1 = new ShortMessage();
-            msg1.setMessage(PROGRAM_CHANGE, 1, instrument,0);
-            MidiEvent changeInstrument = new MidiEvent(msg1, 1);
-            track.add(changeInstrument);
-//          Second Event
-            ShortMessage msg2 = new ShortMessage();
-            msg2.setMessage(NOTE_ON, 1, note,100);
-            MidiEvent noteOn = new MidiEvent(msg2, 1);
-            track.add(noteOn);
-            // Third Event
-            ShortMessage msg3 = new ShortMessage();
-            msg3.setMessage(NOTE_OFF, 1, note, 100);
-            MidiEvent noteOff = new MidiEvent(msg3, 16);
-            track.add(noteOff);
-
-
+            //Events
+            for (int i = 5; i<61; i += 4) {
+                track.add(makeEvent(NOTE_ON, 1, i, 100, i));
+                track.add(makeEvent(CONTROL_CHANGE,1,127,0,i));
+                track.add(makeEvent(NOTE_OFF, 1,i,100,i+2));
+            }
             player.setSequence(seq);
-
+            player.setTempoInBPM(220);
             player.start();
-
 
         }
         catch(Exception e) {
@@ -53,5 +46,17 @@ public class Beatbox {
         }
 
     }
+    public static MidiEvent makeEvent(int command, int channel, int one, int two, int tick) {
+       MidiEvent event = null;
+        try {
+            ShortMessage msg = new ShortMessage();
+            msg.setMessage(command, channel, one, two);
+            event = new MidiEvent(msg, tick);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return event;
+    }
+
 
 }

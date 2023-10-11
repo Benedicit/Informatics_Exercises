@@ -1,20 +1,31 @@
 package MIDI_BeatBox;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
-public class GUI implements ActionListener {
-    private JButton button;
-    public void go() {
-        JFrame frame = new JFrame();
-        button = new JButton("click me");
-        button.addActionListener(this);
+public class GUI {
+    private JFrame frame;
+    private JLabel label;
 
+    public void go() {
+        frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(button);
+
+        JButton labelbutton = new JButton("Change colors");
+        labelbutton.addActionListener(event -> label.setText("Ouch!"));
+
+        JButton colorbutton = new JButton("Change colors");
+        colorbutton.addActionListener(event -> frame.repaint());
+
+        label = new JLabel("I'm a label");
+        DrawPanel panel = new DrawPanel();
+
+        frame.getContentPane().add(BorderLayout.EAST, labelbutton);
+        frame.getContentPane().add(BorderLayout.CENTER, panel);
+        frame.getContentPane().add(BorderLayout.SOUTH, colorbutton);
+        frame.getContentPane().add(BorderLayout.WEST, label);
         frame.setSize(300, 300);
         frame.setVisible(true);
-    }
-    public void actionPerformed(ActionEvent event) {
-        button.setText("I've been clicked");
+
     }
 }

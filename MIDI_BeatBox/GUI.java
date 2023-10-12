@@ -28,6 +28,8 @@ public class GUI {
         frame.getContentPane().add(BorderLayout.CENTER, panel);
         frame.getContentPane().add(BorderLayout.SOUTH, colorbutton);
         frame.getContentPane().add(BorderLayout.WEST, label);
+
+
         frame.setSize(300, 300);
         frame.setVisible(true);
 

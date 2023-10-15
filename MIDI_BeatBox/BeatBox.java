@@ -1,4 +1,5 @@
 package MIDI_BeatBox;
+
 import javax.sound.midi.*;
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,6 @@ public class BeatBox {
 
     public static void main(String[] args) {
         new BeatBox().buildGUI();
-
     }
 
     public void buildGUI() {

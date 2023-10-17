@@ -1,4 +1,4 @@
-package Smaller_Programs;
+package smallerPrograms;
 
 public class for_loopDemo {
     public static void main(String[] args) {

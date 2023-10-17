@@ -1,3 +1,5 @@
+package Smaller_Programs;
+
 public class for_loopDemo {
     public static void main(String[] args) {
         int x = 0;

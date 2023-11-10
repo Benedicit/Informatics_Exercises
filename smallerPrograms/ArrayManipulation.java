@@ -5,11 +5,14 @@ import java.util.Arrays;
 public class ArrayManipulation {
     public static void main(String[] args) {
 
-        int[] org = {20, 35, 40};
-        int[] arr = oneToTheLeft(org);
-        System.out.println(Arrays.toString(arr));
-        int[] arr2 = swapFirstAndLast(org);
-        System.out.println(Arrays.toString(arr2));
+        int[] org = {20, 35, 40,5};
+        //int[] arr = oneToTheLeft(org);
+        //System.out.println(Arrays.toString(arr));
+        //int[] arr2 = swapFirstAndLast(org);
+        //System.out.println(Arrays.toString(arr2));
+        rotate(org,-1);
+        System.out.println(Arrays.toString(org));
+
     }
     public static int[] oneToTheLeft(int[] y) {
         int[] newArr = new int[3];
@@ -31,6 +34,37 @@ public class ArrayManipulation {
         temp[y.length-1] = y[0];
         return temp;
     }
+    public static void rotate (int[] array, int amount) {
+        if (amount==0 || amount == array.length || (amount *-1) == array.length) {
+            return;
+        }
+        int[] result = new int[array.length];
+
+        if(amount<0) {
+            amount *= -1;
+            while (amount > array.length) {
+                amount -= array.length;
+            }
+            amount = array.length-amount;
+        } else {
+            while (amount > array.length) {
+                amount -= array.length;
+            }
+        }
+        for (int i = 0; i < result.length; i++) {
+                //for (int i = 1; i < array.length - 1; i++) {
+            if(i+amount<result.length) {
+                result[amount+i] = array[i];
+            } else {
+                result[-array.length+i+amount] = array[i];
+            }
+        }
+        System.arraycopy(result,0,array,0,array.length);
+
+
+
+    }
+
 
 
 

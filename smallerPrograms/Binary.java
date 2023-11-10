@@ -2,7 +2,7 @@ package smallerPrograms;
 
 public class Binary {
     public static void main(String[] args) {
-        int x = 42;
+        int x = 65;
         System.out.println(bin(x));
     }
     public static String bin(int i) {

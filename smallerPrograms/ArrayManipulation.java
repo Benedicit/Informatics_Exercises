@@ -63,11 +63,16 @@ public class ArrayManipulation {
     }
     public static int[] zipMany(int[][] arrays) {
         int totalLength =0;
+
+        //get the total length
         for(int[] array : arrays) {
             totalLength += array.length;
         }
         int[] result = new int[totalLength];
+
+        //An array to store which element in the subarrays we are
         int[] array = new int[arrays.length];
+
         int i=0;
         int row =0;
         while(i<totalLength) {

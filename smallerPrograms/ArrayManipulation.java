@@ -6,12 +6,15 @@ public class ArrayManipulation {
     public static void main(String[] args) {
 
         int[] org = {20, 35, 40,5};
+        int[][] test = {{1,4,7},{2,5,8},{3,6}};
+        int[][] test2 = {{}};
         //int[] arr = oneToTheLeft(org);
         //System.out.println(Arrays.toString(arr));
         //int[] arr2 = swapFirstAndLast(org);
         //System.out.println(Arrays.toString(arr2));
         rotate(org,0);
         System.out.println(Arrays.toString(org));
+        System.out.println(Arrays.toString(zipMany(test)));
 
     }
     public static int[] oneToTheLeft(int[] y) {
@@ -45,9 +48,7 @@ public class ArrayManipulation {
             amount %= array.length;
             amount = array.length-amount;
         } else {
-            while (amount > array.length) {
-                amount -= array.length;
-            }
+            amount %= array.length;
         }
         for (int i = 0; i < result.length; i++) {
                 //for (int i = 1; i < array.length - 1; i++) {
@@ -59,9 +60,31 @@ public class ArrayManipulation {
         }
         System.arraycopy(result,0,array,0,array.length);
 
-
-
     }
+    public static int[] zipMany(int[][] arrays) {
+        int totalLength =0;
+        for(int[] array : arrays) {
+            totalLength += array.length;
+        }
+        int[] result = new int[totalLength];
+        int[] array = new int[arrays.length];
+        int i=0;
+        int row =0;
+        while(i<totalLength) {
+            if(row % arrays.length ==0) {
+                row = 0;
+            }
+            if (array[row] < arrays[row].length) {
+                result[i] = arrays[row][array[row]];
+                array[row] += 1;
+                i++;
+            }
+            row++;
+
+        }
+     return result;
+    }
+
 
 
 

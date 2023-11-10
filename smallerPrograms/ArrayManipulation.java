@@ -10,7 +10,7 @@ public class ArrayManipulation {
         //System.out.println(Arrays.toString(arr));
         //int[] arr2 = swapFirstAndLast(org);
         //System.out.println(Arrays.toString(arr2));
-        rotate(org,-1);
+        rotate(org,0);
         System.out.println(Arrays.toString(org));
 
     }
@@ -35,16 +35,14 @@ public class ArrayManipulation {
         return temp;
     }
     public static void rotate (int[] array, int amount) {
-        if (amount==0 || amount == array.length || (amount *-1) == array.length) {
+        if (amount % array.length == 0 || (amount *-1) % array.length == 0) {
             return;
         }
         int[] result = new int[array.length];
 
         if(amount<0) {
             amount *= -1;
-            while (amount > array.length) {
-                amount -= array.length;
-            }
+            amount %= array.length;
             amount = array.length-amount;
         } else {
             while (amount > array.length) {

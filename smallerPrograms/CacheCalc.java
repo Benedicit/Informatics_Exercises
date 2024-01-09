@@ -42,6 +42,9 @@ public class CacheCalc {
                 for (String s: counts) {
                     if(!s.isEmpty()) {
                         s = s.trim();
+                        if(s.length() < 8) {
+                            s = "0x" + s + " ".repeat(7-s.length());
+                        }
                         list.add(s);
                     }
                 }
@@ -51,11 +54,10 @@ public class CacheCalc {
 
                 strLine = strLine.substring(2);
                 int whole = HexFormat.fromHexDigits(strLine);
-
                 int blockNumber = whole / 8;
                 int index = blockNumber % 8;
                 int tag = whole >> 6;
-                String hexTag = Integer.toHexString(tag).toUpperCase();
+                String hexTag = Integer.toHexString(tag).toUpperCase().trim();
                 if (!caches.containsKey(index)) {
                     List<String> l = new ArrayList<>();
                     l.add(hexTag);
@@ -63,6 +65,10 @@ public class CacheCalc {
 
                 } else {
                     var temp2 = caches.get(index);
+
+                    if(hexTag.length() < 8) {
+                        hexTag = "0x" + hexTag + " ".repeat(7-hexTag.length());
+                    }
                     temp2.add(0, hexTag);
                 }
             }
@@ -72,7 +78,12 @@ public class CacheCalc {
 
         for (var t : caches.keySet()) {
             var list = caches.get(t);
-            System.out.println("Zeile "  + t + ": | 0x" + list.stream().limit(4).collect(Collectors.joining(" | 0x")) + " |");
+            while (list.size() < 4) {
+                list.add(" ".repeat(9));
+            }
+            System.out.println(" ".repeat(9) + "|-----------|-----------|-----------|-----------|");
+            System.out.println("Zeile "  + t + ": | " + list.stream().limit(4).collect(Collectors.joining(" | ")) + " |");
         }
+        System.out.println(" ".repeat(9) + "|-----------|-----------|-----------|-----------|");
     }
 }

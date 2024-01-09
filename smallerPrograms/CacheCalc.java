@@ -15,6 +15,7 @@ public class CacheCalc {
         File file = new File("/Users/benedikt/Documents/Studium/Informatik/ERA/Zusatz/input.txt");
         BufferedReader br;
         long result = 0;
+        int currentLine =0;
         try {
             br = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
@@ -29,28 +30,49 @@ public class CacheCalc {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            strLine = strLine.substring(2);
-            int whole = HexFormat.fromHexDigits(strLine);
-
-            int blockNumber = whole / 8;
-            int index = blockNumber % 8;
-            int tag = whole >> 6;
-            String hexTag = Integer.toHexString(tag).toUpperCase();
-            if(!caches.containsKey(index)) {
-                List<String> l = new ArrayList<>();
-                l.add(hexTag);
-                caches.put(index, l);
+            strLine = strLine.replaceAll("[|-]","");
+            if(strLine.isEmpty()) {
+                continue;
+            }
+            int cacheSetCount = 8;
+            strLine = strLine.trim();
+            if(currentLine < cacheSetCount) {
+                String[] counts = strLine.split("0x");
+                List<String> list = new ArrayList<>();
+                for (String s: counts) {
+                    if(!s.isEmpty()) {
+                        s = s.trim();
+                        list.add(s);
+                    }
+                }
+                caches.put(currentLine,list);
 
             } else {
-                var temp2 = caches.get(index);
-                temp2.add(0,hexTag);
-            }
 
+                strLine = strLine.substring(2);
+                int whole = HexFormat.fromHexDigits(strLine);
+
+                int blockNumber = whole / 8;
+                int index = blockNumber % 8;
+                int tag = whole >> 6;
+                String hexTag = Integer.toHexString(tag).toUpperCase();
+                if (!caches.containsKey(index)) {
+                    List<String> l = new ArrayList<>();
+                    l.add(hexTag);
+                    caches.put(index, l);
+
+                } else {
+                    var temp2 = caches.get(index);
+                    temp2.add(0, hexTag);
+                }
+            }
+            currentLine++;
         }
         //int i =0;
+
         for (var t : caches.keySet()) {
             var list = caches.get(t);
-            System.out.println("Zeile "  + t + ": | " + list.stream().limit(4).collect(Collectors.joining(" | ")) + " |");
+            System.out.println("Zeile "  + t + ": | 0x" + list.stream().limit(4).collect(Collectors.joining(" | 0x")) + " |");
         }
     }
 }

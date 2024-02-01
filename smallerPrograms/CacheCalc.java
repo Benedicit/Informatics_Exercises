@@ -14,7 +14,7 @@ public class CacheCalc {
     public static void calc() {
         File file = new File("/Users/benedikt/Documents/Studium/Informatik/ERA/Zusatz/input.txt");
         BufferedReader br;
-        long result = 0;
+
         int currentLine =0;
         try {
             br = new BufferedReader(new FileReader(file));
@@ -81,9 +81,9 @@ public class CacheCalc {
             while (list.size() < 4) {
                 list.add(" ".repeat(9));
             }
-            System.out.println(" ".repeat(9) + "|-----------|-----------|-----------|-----------|");
-            System.out.println("Zeile "  + t + ": | " + list.stream().limit(4).collect(Collectors.joining(" | ")) + " |");
+            System.out.println(" ".repeat(10) + "|-----------|-----------|-----------|-----------|");
+            System.out.println("Set "  + t + " =>  | " + list.stream().limit(4).collect(Collectors.joining(" | ")) + " |");
         }
-        System.out.println(" ".repeat(9) + "|-----------|-----------|-----------|-----------|");
+        System.out.println(" ".repeat(10) + "|-----------|-----------|-----------|-----------|");
     }
 }
